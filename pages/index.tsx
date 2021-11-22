@@ -1,20 +1,8 @@
 import Head from "next/head";
-import { Button } from "@pega/cosmos-react-core";
-import { SpotifyWebApi } from "../utils/spotifyApi";
+import { createSpotifyAuthUrl } from "../utils/spotifyApi";
 
 export default function Home() {
-  const scopes = ["user-read-private", "user-read-email"];
-  const redirect = "http://localhost:3000/login";
-  const clientId = "c476f085f3ce45ffaa1930335706312e";
-
-  const spotifyApi = new SpotifyWebApi({
-    redirectUri: redirect,
-    clientId,
-  });
-
-  console.log(spotifyApi);
-
-  const authUrl = spotifyApi.createAuthorizeURL(scopes, "");
+  const authUrl = createSpotifyAuthUrl();
 
   return (
     <div className="container">
@@ -32,7 +20,7 @@ export default function Home() {
           Get started by editing <code>pages/index.js</code>
         </p>
 
-        <Button href={authUrl}>Cosmos Button</Button>
+        <a href={authUrl}>Cosmos Button</a>
 
         <div className="grid">
           <a href="https://nextjs.org/docs" className="card">
