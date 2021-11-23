@@ -15,6 +15,7 @@ interface p5Extended extends Omit<p5, "draw"> {
 const VisualizerContainer = styled.div`
   height: 100vh;
   width: 100vw;
+  position: relative;
 `;
 
 const GregTheAudioAnalyzer = new AudioAnalyzer();
@@ -49,13 +50,16 @@ export default function Visualizer() {
         }
       });
       player.on("player_state_changed", (state) => {
-        setTrackId(state.track_window.current_track.id);
+        if (state) {
+          setTrackId(state.track_window.current_track.id);
+        }
       });
     }
   }, [player]);
 
   useEffect(() => {
     if (trackId) {
+      GregTheAudioAnalyzer.reset();
       getTrackData();
     }
   }, [trackId]);
@@ -141,6 +145,7 @@ export default function Visualizer() {
     <VisualizerContainer id="bob-ross" ref={visualizerRef}>
       <LiveEditor
         onCodeChange={(code) => {
+          console.log(code);
           drawFunc.current = eval(code);
         }}
       />

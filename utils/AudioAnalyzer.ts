@@ -11,10 +11,24 @@ export class AudioAnalyzer {
   private segmentPosition: number = 0;
   public setAudioData = (data: AudioAnalysisData) => {
     this.audioData = data;
+    this.getAudioDataAtTime = this._getAudioDataAtTime;
   };
   public currentAudioData: AudioData = { pitch: 0, volume: 0, timbre: 0 };
 
-  public getAudioDataAtTime = (ms: number): AudioData => {
+  public reset = () => {
+    this.currentAudioData = { pitch: 0, volume: 0, timbre: 0 };
+    this.setAudioData({ segments: [] });
+    this.segmentPosition = 0;
+    this.getAudioDataAtTime = this._getDummyAudioData;
+  };
+
+  public getAudioDataAtTime: (ms: number) => AudioData;
+
+  private _getDummyAudioData = () => {
+    return this.currentAudioData;
+  };
+
+  private _getAudioDataAtTime = (ms: number): AudioData => {
     const seconds = ms / 1000;
     let atSegment = false;
     while (!atSegment) {

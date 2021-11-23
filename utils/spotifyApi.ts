@@ -35,9 +35,9 @@ export interface AudioAnalysisData {
 
 export const CLIENT_ID = "c476f085f3ce45ffaa1930335706312e";
 
-export const createSpotifyAuthUrl = () => {
+export const createSpotifyAuthUrl = (url?: string) => {
   const scopes = ["streaming", "user-read-private", "user-read-email"];
-  const redirect = "http://localhost:3000/app";
+  const redirect = `${url || "http://localhost:3000"}/app`;
   const showDialog = true;
   const responseType = "token";
 
