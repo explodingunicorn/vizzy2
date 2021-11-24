@@ -1,11 +1,8 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { Button } from "../Components/Button";
 import { createSpotifyAuthUrl } from "../utils/spotifyApi";
 
 export default function Home() {
-  const router = useRouter();
-  console.log(router);
   const authUrl = createSpotifyAuthUrl(process.env.VERCEL_URL);
 
   return (
