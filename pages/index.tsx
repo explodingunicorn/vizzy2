@@ -3,7 +3,11 @@ import { Button } from "../Components/Button";
 import { createSpotifyAuthUrl } from "../utils/spotifyApi";
 
 export default function Home() {
-  const authUrl = createSpotifyAuthUrl(process.env.VERCEL_URL);
+  const authUrl = createSpotifyAuthUrl(
+    process.env.VERCEL_ENV === "production"
+      ? "https://vizzy2.vercel.app"
+      : "http://localhost:3000"
+  );
 
   return (
     <div className="container">
